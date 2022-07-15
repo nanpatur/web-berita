@@ -61,7 +61,7 @@ const Home = () => {
             style={{ width: "60%", cursor: "pointer" }}
             onClick={() => window.open(newsList[0].link, "_blank")}
           >
-            <img src={newsList[0].image?.large || imagePlaceholder} className="card-img-top mb-3" alt="..." />
+            <img src={(typeof newsList[0].image === 'string' ? newsList[0].image : newsList[0].image?.large || newsList[0].image?.small) || imagePlaceholder} className="card-img-top mb-3" alt="..." />
             <p style={{ fontSize: '12px' }} className='mb-1 text-secondary'>{new Date(newsList[0].isoDate).toLocaleDateString('id-ID', options)}</p>
             <h5 className="card-title">{newsList[0].title}</h5>
             <p className="card-text">
@@ -76,7 +76,7 @@ const Home = () => {
                 key={i}
                 onClick={() => window.open(news.link, "_blank")}
               >
-                <img style={{ width: '50%' }} src={news.image?.small || imagePlaceholder} className="card-img-top mb-2" alt="..." />
+                <img style={{ width: '50%' }} src={(typeof news.image === 'string' ? news.image : news.image?.small || news.image?.large) || imagePlaceholder} className="card-img-top mb-2" alt="..." />
                 <div>
                   <p style={{ fontSize: '12px' }} className='px-3 mb-1 text-secondary'>{new Date(news.isoDate).toLocaleDateString('id-ID', options)}</p>
                   <h6 className="card-title px-3">{news.title}</h6>
@@ -94,7 +94,7 @@ const Home = () => {
               key={i}
               onClick={() => window.open(news.link, "_blank")}
             >
-              <img src={news.image?.small || imagePlaceholder} className="card-img-top" alt="..." />
+              <img src={(typeof news.image === 'string' ? news.image : news.image?.small || news.image?.large) || imagePlaceholder} className="card-img-top" alt="..." />
               <div className="card-body">
                 <p style={{ fontSize: '12px' }} className='mb-1 text-secondary'>{new Date(news.isoDate).toLocaleDateString('id-ID', options)}</p>
                 <h5 className="card-title fw-bold">{news.title}</h5>
@@ -159,7 +159,7 @@ const Home = () => {
       {isLoadingSourceList ? <p className='text-center mt-3 text-black'>Loading...</p> : (
         <>
           <div className="px-3">
-            {selectedNewsDetail?.listType.map((type) => (
+            {selectedNewsDetail?.listType?.map((type) => (
               <span
                 className={`me-2 badge rounded-pill text-bg-${selectedType === type ? 'warning' : 'light'}`}
                 onClick={() => setSelectedType(type)}
